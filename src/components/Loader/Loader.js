@@ -17,3 +17,5 @@ function Loader() {
     </Division>
   );
 }
+
+export default Loader;
