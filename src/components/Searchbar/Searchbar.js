@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-import { Header, Form, Button, Input, Span } from './Searchbar.styled';
+import { Header, Form, Button, Input } from './Searchbar.styled';
 import { iconSize } from '../constans';
 
 class Searchbar extends Component {
@@ -16,6 +17,13 @@ class Searchbar extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
+    if (this.state.input === '') {
+      toast.warning(
+        'Input is empty. Please, write the subject of your request.'
+      );
+      return;
+    }
     this.props.getInputValue(this.state.input);
     this.setState({ input: '' });
   };
@@ -28,7 +36,6 @@ class Searchbar extends Component {
         <Form onSubmit={this.handleSubmit}>
           <Button type="submit">
             <FaSearch size={iconSize.md} />
-            <Span>Search</Span>
           </Button>
 
           <Input
