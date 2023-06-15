@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Gallery } from './ImageGallery.styled';
 
 class ImageGallery extends Component {
   state = {};
@@ -6,7 +7,7 @@ class ImageGallery extends Component {
   render() {
     return (
       <>
-        <ul class="gallery"></ul>
+        <Gallery></Gallery>
       </>
     );
   }
