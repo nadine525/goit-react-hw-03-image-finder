@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { FaSearch } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { Header, Form, Button, Input, Span } from './Searchbar.styled';
+import { iconSize } from '../constans';
 
 class Searchbar extends Component {
   state = {
@@ -8,7 +10,7 @@ class Searchbar extends Component {
   };
 
   handleChange = event => {
-    this.setState({ input: event.target.value });
+    this.setState({ input: event.target.value.toLowerCase().trim() });
     // console.log(event.target.value);
   };
 
@@ -25,6 +27,7 @@ class Searchbar extends Component {
       <Header>
         <Form onSubmit={this.handleSubmit}>
           <Button type="submit">
+            <FaSearch size={iconSize.md} />
             <Span>Search</Span>
           </Button>
 
