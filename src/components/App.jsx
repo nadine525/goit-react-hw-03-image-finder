@@ -10,14 +10,14 @@ import ModalWindow from './ModalWindow';
 
 import { Container } from "./App.styled";
 
-import { fetchImagesFromServer} from './services/api';
+import { fetchImages} from './services/api';
 
 
 
 export class App extends Component {
   state = {
     searchValue: '',
-    showModal: true,
+    showModal: false,
     images: [],
     page: 1,
   };
@@ -35,7 +35,8 @@ export class App extends Component {
     const { searchValue, page } = this.state;
 
     try {
-      const response = await fetchImagesFromServer(searchValue, page);
+      const response = await fetchImages(searchValue, page);
+      console.log(response);
 
       this.setState(prevState => ({images: [...prevState.images, ...response.hits]}));
     } catch (error) {
@@ -62,12 +63,12 @@ export class App extends Component {
 
 
   render() {
-    const { showModal } = this.state;
+    const { images, showModal } = this.state;
 
       return (
       <Container>
           <Searchbar getInputValue={this.getInputValue} />
-          <ImageGallery searchValue={this.state.searchValue } />
+          <ImageGallery images={images} />
           {showModal && <ModalWindow onClose={this.toggleModal} />}
           <ToastContainer autoClose={3000} />
       </Container>
