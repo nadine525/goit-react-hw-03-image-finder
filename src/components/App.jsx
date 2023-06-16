@@ -4,14 +4,14 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import Searchbar from "./Searchbar";
-
 import ImageGallery from './ImageGallery';
+import Button from "./Button";
 import ModalWindow from './ModalWindow';
-
-import { Container } from "./App.styled";
+import Loader from "./Loader/Loader";
 
 import { fetchImages} from './services/api';
-// import Loader from "./Loader/Loader";
+
+import { Container } from "./App.styled";
 
 
 
@@ -31,7 +31,7 @@ export class App extends Component {
     if (prevState.searchValue !== this.state.searchValue || prevState.page !== this.state.page) {
       // console.log(prevState.searchValue);
       // console.log(this.state.searchValue);
-      // this.setState({ loading: true });
+
       this.fetchImages();
     }
   }
@@ -47,6 +47,7 @@ export class App extends Component {
       this.setState(prevState => ({ images: [...prevState.images, ...response.hits] }));
       this.setState({ status: 'resolved' });
     } catch (error) {
+      console.log(error);
       this.setState({ status: 'rejected' });
     }
   }
@@ -69,17 +70,23 @@ export class App extends Component {
     this.toggleModal();
   };
 
-
+  onButtonClick = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
+  }
 
   render() {
-    const { images, showModal, modalImg, modalTags } = this.state;
+    const { images, showModal, modalImg, modalTags} = this.state;
 
       return (
       <Container>
           <Searchbar getInputValue={this.getInputValue} />
-          <ImageGallery images={images} onImgClick={this.getLargeImg} />
+
+          {this.state.images.length > 0 && (<ImageGallery images={images} onImgClick={this.getLargeImg} />)}
+
+          {this.state.status === 'pending' && <Loader />}
+          {this.state.images.length > 0 && (<Button onClick={this.onButtonClick} />)}
         
-          {showModal && <ModalWindow url={modalImg} tags={modalTags} onClose={this.toggleModal} />}
+          {showModal && (<ModalWindow url={modalImg} tags={modalTags} onClose={this.toggleModal} />)}
           <ToastContainer autoClose={3000} />
       </Container>
     );

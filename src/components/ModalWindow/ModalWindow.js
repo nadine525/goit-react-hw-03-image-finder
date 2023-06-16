@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Overlay, Modal } from './ModalWindow.styled';
 
 class ModalWindow extends Component {
@@ -40,3 +40,9 @@ class ModalWindow extends Component {
 }
 
 export default ModalWindow;
+
+Modal.propTypes = {
+  url: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
