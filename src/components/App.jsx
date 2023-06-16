@@ -28,22 +28,20 @@ export class App extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.searchValue !== this.props.searchValue) {
-      // console.log(prevProps.searchValue);
-      // console.log(this.props.searchValue);
+    if (prevState.searchValue !== this.state.searchValue || prevState.page !== this.state.page) {
+      // console.log(prevState.searchValue);
+      // console.log(this.state.searchValue);
+      this.setState({ loading: true });
+      this.fetchImages();
     }
-    
-    this.fetchImages();
   }
 
   fetchImages = async () => {
     const { searchValue, page } = this.state;
-
-    this.setState({ loading: true });
     
     try {
       const response = await fetchImages(searchValue, page);
-      // console.log(response);
+      console.log(response);
 
       this.setState(prevState => ({ images: [...prevState.images, ...response.hits] }));
       
@@ -62,15 +60,15 @@ export class App extends Component {
     });
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal
+  toggleModal = (event) => {
+    this.setState(state => ({
+      showModal: !state.showModal
     }))
   };
 
   getLargeImg = (imageURL, imageTags)=> {
-    this.toggleModal();
     this.setState({ modalImg: imageURL, modalTags: imageTags });
+    this.toggleModal();
   };
 
 
