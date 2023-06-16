@@ -21,7 +21,7 @@ export class App extends Component {
     showModal: false,
     images: [],
     page: 1,
-    loading: false,
+    status: 'idle',
     error: false,
     modalImg: '',
     modalTags: '',
@@ -31,7 +31,7 @@ export class App extends Component {
     if (prevState.searchValue !== this.state.searchValue || prevState.page !== this.state.page) {
       // console.log(prevState.searchValue);
       // console.log(this.state.searchValue);
-      this.setState({ loading: true });
+      // this.setState({ loading: true });
       this.fetchImages();
     }
   }
@@ -40,18 +40,16 @@ export class App extends Component {
     const { searchValue, page } = this.state;
     
     try {
+      this.setState({ status: 'pending' });
       const response = await fetchImages(searchValue, page);
       console.log(response);
 
       this.setState(prevState => ({ images: [...prevState.images, ...response.hits] }));
-      
+      this.setState({ status: 'resolved' });
     } catch (error) {
-      this.setState({ error });
-
-    } finally {
-      this.setState({ loading: false });
+      this.setState({ status: 'rejected' });
     }
-  };
+  }
 
   getInputValue = handleValue => {
     console.log(handleValue);
