@@ -4,7 +4,7 @@ import { ButtonTag } from './Button.styled';
 
 const Button = ({ onClick }) => {
   return (
-    <ButtonTag type="button" onClik={onClick}>
+    <ButtonTag type="button" onClick={onClick}>
       Load more
     </ButtonTag>
   );

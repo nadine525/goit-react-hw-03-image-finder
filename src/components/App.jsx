@@ -82,7 +82,7 @@ export class App extends Component {
 
           {this.state.images.length > 0 && (<ImageGallery images={images} onImgClick={this.getLargeImg} />)}
 
-          {this.state.status === 'pending' && <Loader />}
+          { this.state.status === 'pending' && <Loader />}
           {this.state.images.length > 0 && (<Button onClick={this.onButtonClick} />)}
         
           {showModal && (<ModalWindow url={modalImg} tags={modalTags} onClose={this.toggleModal} />)}

@@ -5,10 +5,10 @@ function Loader() {
   return (
     <Division>
       <Rings
-        height="80"
-        width="80"
+        height="180"
+        width="180"
         color="#4fa94d"
-        radius="6"
+        radius="180"
         wrapperStyle={{}}
         wrapperClass=""
         visible={true}
