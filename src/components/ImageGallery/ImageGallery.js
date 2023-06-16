@@ -6,13 +6,17 @@ import { Gallery } from './ImageGallery.styled';
 
 class ImageGallery extends Component {
   render() {
-    const { images } = this.props;
+    const { images, onImgClick } = this.props;
 
     return (
       <>
         <Gallery>
           {images.map(image => (
-            <ImageGalleryItem key={image.id} image={image} />
+            <ImageGalleryItem
+              key={image.id}
+              image={image}
+              onClick={onImgClick}
+            />
           ))}
         </Gallery>
       </>

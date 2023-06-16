@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { Overlay, Modal } from './ModalWindow.styled';
 
 class ModalWindow extends Component {
-  state = {};
-
   componentDidMount() {
     window.addEventListener('keydown', this.handleEscape);
   }
@@ -34,7 +32,7 @@ class ModalWindow extends Component {
     return (
       <Overlay onClick={this.handleBackDropClick}>
         <Modal>
-          <img src="" alt="" />
+          <img src={this.props.url} alt={this.props.tags} />
         </Modal>
       </Overlay>
     );

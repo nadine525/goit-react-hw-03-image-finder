@@ -4,10 +4,14 @@ import {
   ImageGalleryImage,
 } from './ImageGalleryItem.styled';
 
-const ImageGalleryItem = ({ images }) => {
+const ImageGalleryItem = ({ image, onImgClick }) => {
   return (
     <ImageGalleryItemList>
-      <ImageGalleryImage src={images.webformatURL} alt={images.tags} />
+      <ImageGalleryImage
+        src={image.webformatURL}
+        alt={image.tags}
+        onClick={() => onImgClick(image.largeImageURL, image.tags)}
+      />
     </ImageGalleryItemList>
   );
 };
