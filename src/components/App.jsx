@@ -22,7 +22,6 @@ export class App extends Component {
     images: [],
     page: 1,
     status: 'idle',
-    error: false,
     modalImg: '',
     modalTags: '',
   };
