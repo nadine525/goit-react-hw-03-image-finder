@@ -16,7 +16,7 @@ class ImageGallery extends Component {
             <ImageGalleryItem
               key={image.id}
               image={image}
-              onClick={onImgClick}
+              onImgClick={onImgClick}
             />
           ))}
         </Gallery>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import Searchbar from "./Searchbar";
@@ -43,8 +43,16 @@ export class App extends Component {
       const response = await fetchImages(searchValue, page);
       console.log(response);
 
+      if (response.hits.length === 0) {
+        this.setState({ status: 'rejected' });
+        toast.warning('Sorry, there are no images matching in your search query. Please create new requerst and try again.');
+        
+        return;
+      }
+
       this.setState(prevState => ({ images: [...prevState.images, ...response.hits] }));
       this.setState({ status: 'resolved' });
+
     } catch (error) {
       console.log(error);
       this.setState({ status: 'rejected' });
@@ -52,6 +60,7 @@ export class App extends Component {
   }
 
   getInputValue = handleValue => {
+    this.setState({images: [], page: 1})
     console.log(handleValue);
     this.setState({
       searchValue: handleValue,
@@ -82,7 +91,7 @@ export class App extends Component {
 
           {this.state.images.length > 0 && (<ImageGallery images={images} onImgClick={this.getLargeImg} />)}
 
-          { this.state.status === 'pending' && <Loader />}
+          {this.state.status === 'pending' && <Loader />}
           {this.state.images.length > 0 && (<Button onClick={this.onButtonClick} />)}
         
           {showModal && (<ModalWindow url={modalImg} tags={modalTags} onClose={this.toggleModal} />)}

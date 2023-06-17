@@ -22,6 +22,8 @@ export const fetchImages = async (inputValue, page) => {
     const response = await axios.get(imageUrl);
     return response.data;
   } catch (error) {
-    throw new Error('Error fetching images');
+    throw new Error(
+      'Error. The requested page can not be found on the website server.'
+    );
   }
 };
