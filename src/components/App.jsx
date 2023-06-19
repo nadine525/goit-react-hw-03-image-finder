@@ -9,7 +9,7 @@ import Button from "./Button";
 import ModalWindow from './ModalWindow';
 import Loader from "./Loader/Loader";
 
-import { fetchImages} from './services/api';
+import { fetchImages} from '../services/api';
 
 import { Container } from "./App.styled";
 
@@ -83,16 +83,16 @@ export class App extends Component {
   }
 
   render() {
-    const { images, showModal, modalImg, modalTags} = this.state;
+    const { images, showModal, modalImg, modalTags, status} = this.state;
 
       return (
       <Container>
           <Searchbar getInputValue={this.getInputValue} />
 
-          {this.state.images.length > 0 && (<ImageGallery images={images} onImgClick={this.getLargeImg} />)}
+          {images.length > 0 && (<ImageGallery images={images} onImgClick={this.getLargeImg} />)}
 
-          {this.state.status === 'pending' && <Loader />}
-          {this.state.images.length > 0 && (<Button onClick={this.onButtonClick} />)}
+          {status === 'pending' && <Loader />}
+          {images.length > 0 && status !== 'pending' && (<Button onClick={this.onButtonClick} />) }
         
           {showModal && (<ModalWindow url={modalImg} tags={modalTags} onClose={this.toggleModal} />)}
           <ToastContainer autoClose={3000} />
